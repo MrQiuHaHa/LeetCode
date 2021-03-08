@@ -25,12 +25,27 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+/// 递归解法
 void reverseList(ListNode* head) {
 
     if (head->next == nullptr || head == nullptr) return; // head == nullptr是容错当前链表就是个NULL
     reverseList(head->next);
     head->next->next = head;
     head->next = nullptr;
+    
+}
+
+/// 迭代解法
+void reverseList1(ListNode* head) {
+
+    if (head->next == nullptr || head == nullptr) return; // head == nullptr是容错当前链表就是个NULL
+    ListNode *newHead = nullptr;
+    while (head) {
+        ListNode *tmp = head->next;
+        head->next = newHead;
+        newHead = head;
+        head = tmp;
+    }
     
 }
 
@@ -43,7 +58,8 @@ int main(int argc, const char * argv[]) {
     ListNode *lastNode = new ListNode(9);
     node->next->next->next = lastNode;
     
-    reverseList(node);
+//    reverseList(node);
+    reverseList1(node);
     
     while (lastNode) {
         cout << lastNode->val << endl;  // 9->5->1->4
