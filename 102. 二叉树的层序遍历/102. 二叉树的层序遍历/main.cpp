@@ -84,9 +84,15 @@ vector<vector<int>> levelOrder(TreeNode* root) {
             subArr.clear();
         }
     }
-    cout << "层高为：" << height << "层" << endl;
+    cout << "层序遍历计算层高为：" << height << "层" << endl;
     
     return arr;
+}
+
+// 计算单个节点的高度（二叉树深度）递归方法
+int depth(TreeNode *root) {
+    if (root == nullptr) return 0; //探到0层的时候就往回的时候就不停+1
+    return max(depth(root->left), depth(root->right)) + 1;
 }
 
 int main(int argc, const char * argv[]) {
@@ -100,6 +106,9 @@ int main(int argc, const char * argv[]) {
         }
         cout << endl;
     }
+    
+    cout << "递归方法计算层高为：" << depth(createBinarySearchTree()) << "层" << endl;
+    
     
     return 0;
 }
