@@ -30,40 +30,34 @@ public:
     vector<int> arr;
     //前序遍历方法 (根节点-左子树-右子树)
     vector<int> preorderTraversal(TreeNode* root) {
-        arr.clear();
-        preorderScan(root);
+        if (root == nullptr) {
+            return arr;
+        }
+        arr.push_back(root->val);
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
         return arr;
     }
+        
     //中序遍历方法 (左子树-根节点-右子树)
     vector<int> inorderTraversal(TreeNode* root) {
-        arr.clear();
-        inorderScan(root);
+        if (root == nullptr) {
+            return arr;
+        }
+        inorderTraversal(root->left);
+        arr.push_back(root->val);
+        inorderTraversal(root->right);
         return arr;
     }
     //后序遍历方法 (左子树-右子树-根节点)
     vector<int> postorderTraversal(TreeNode* root) {
-        arr.clear();
-        postorderScan(root);
+        if (root == nullptr) {
+            return arr;
+        }
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+        arr.push_back(root->val);
         return arr;
-    }
-private:
-    void preorderScan(TreeNode *root) {
-        if (root == nullptr) return;
-        arr.push_back(root->val);
-        preorderScan(root->left);
-        preorderScan(root->right);
-    }
-    void inorderScan(TreeNode *root) {
-        if (root == nullptr) return;
-        inorderScan(root->left);
-        arr.push_back(root->val);
-        inorderScan(root->right);
-    }
-    void postorderScan(TreeNode *root) {
-        if (root == nullptr) return;
-        postorderScan(root->left);
-        postorderScan(root->right);
-        arr.push_back(root->val);
     }
 };
 
@@ -104,18 +98,21 @@ int main(int argc, const char * argv[]) {
     TreeNode *rootNode = createBinarySearchTree();
     Solution *obj = new Solution();
     //前序遍历测试
+    obj->arr.clear();
     obj->preorderTraversal(rootNode);
     for (int i = 0; i < obj->arr.size(); i++) {
         cout << obj->arr[i] << "->"; // 打印结果为 10 -> 8 -> 7 -> 5 -> 9 -> 12 -> 11 -> 15 答案正确
     }
     cout << endl;
     //中序遍历测试
+    obj->arr.clear();
     obj->inorderTraversal(rootNode);
     for (int i = 0; i < obj->arr.size(); i++) {
         cout << obj->arr[i] << "->"; // 打印结果为 5 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 15 答案正确
     }
     cout << endl;
     //后序遍历测试
+    obj->arr.clear();
     obj->postorderTraversal(rootNode);
     for (int i = 0; i < obj->arr.size(); i++) {
         cout << obj->arr[i] << "->"; // 打印结果为 5 -> 7 -> 9 -> 8 -> 11 -> 15 -> 12 -> 10 答案正确
