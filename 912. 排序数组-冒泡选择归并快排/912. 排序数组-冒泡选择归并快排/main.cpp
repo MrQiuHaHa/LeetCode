@@ -13,9 +13,12 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
+
 using namespace std;
 
-// 冒泡排序1
+// 冒泡排序1 平均时间复杂度O(n^2))
 void bubbleSort1(vector<int>& nums) {
     for (int end = nums.size()-1; end > 0; end--) {
         for (int begin = 1; begin <= end; begin++) {
@@ -60,6 +63,7 @@ void bubbleSort3(vector<int>& nums) {
     }
 }
 // 选择排序--对比冒泡法减少了交换次数，但是没法独立优化。可以配合使用二叉堆进行优化
+// 平均时间复杂度O(n^2))
 void selectionSort(vector<int>& nums) {
     for (int end = nums.size()-1; end > 0; end--) {
         int maxIndex = 0;
@@ -74,7 +78,7 @@ void selectionSort(vector<int>& nums) {
     }
 }
 
-// 归并排序
+// 归并排序 平均时间复杂度O(n*log(n))
 class MergeSort {
     vector<int> leftArr;
     vector<int> numsArr;
@@ -120,7 +124,7 @@ public:
     }
 };
 
-// 快速排序
+// 快速排序  平均时间复杂度O(n*log(n))
 class QuickSort {
     
     vector<int> numsArr;
@@ -145,6 +149,15 @@ private:
     // 核心方法：构造出begin-end间的轴点元素的位置，
     // 备份begin位置的元素为轴点元素，小于轴点的放begin左边，大于轴点的放begin右边，全部完成最终返回轴点的位置
     int pivotIndex(int begin, int end) {
+        
+        // 让begin随机和begin-end的一个位置交换，随机生成轴点，避免出现轴点分割后数组两边极度不均匀
+        // 交换后避免出现最坏时间复杂度O(n^2)
+        int tmp = numsArr[begin];
+        srand((int)time(0));
+        int random = begin + int(rand()%1 *(end-begin));
+        numsArr[begin] = numsArr[random];
+        numsArr[random] = tmp;
+        
         int pivot = numsArr[begin];//备份出轴点元素
         end--; // 先减1指向最后一个元素，[begin, end) 右边是开区间的设计
         
