@@ -44,7 +44,23 @@ int maxSubArray(vector<int>& nums, int begin, int end) {
 
 
 int maxSubArray(vector<int>& nums) {
-    return maxSubArray(nums, 0, nums.size());
+//    return maxSubArray(nums, 0, nums.size());
+    
+    // 下面使用动态规划思想，状态转移分析。
+    // dp[i] 代表的是以nums的第i个元素结尾的最大子序后，而dp[i]可以根据dp[i-1]的值推出
+    if (nums.size() == 0) return 0;
+    int dp[nums.size()];
+    dp[0] = nums[0];
+    int maxSum = dp[0];
+    for (int i = 1; i < (int)nums.size(); i++) {
+        if (dp[i-1] <= 0) { //如果前一个元素结尾的最大子序和是<=0，则抛弃他们自己作为最大和
+            dp[i] = nums[i];
+        } else {
+            dp[i] = dp[i-1]+nums[i];
+        }
+        maxSum = max(dp[i], maxSum);
+    }
+    return maxSum;
 }
 
 int main(int argc, const char * argv[]) {
