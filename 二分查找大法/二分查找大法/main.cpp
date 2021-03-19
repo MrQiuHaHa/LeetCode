@@ -40,7 +40,7 @@ int search_binary(vector<int>& nums, int target) {
 int main(int argc, const char * argv[]) {
     
     vector<int> nums = {-1,0,3,5,9,12};
-    cout << search_binary(nums, 9) << endl;
+    cout << search_binary(nums, 12) << endl;
     
     return 0;
 }
