@@ -46,8 +46,9 @@ int longestCommonSubsequence1(string text1, string text2) {
 int longestCommonSubsequence2(string text1, string text2) {
     
     if (text1.size() == 0 || text2.size() == 0) return 0;
-    
-    vector<vector<int>> dp(text1.size() + 1, vector<int>(text2.size() + 1, 0));
+    int dp[text1.size()+1][text2.size()+1];
+    memset(dp,0,sizeof(dp));//必须初始化为0，不然下面的比较结果无法比较
+//    vector<vector<int>> dp(text1.size()+1, vector<int>(text2.size()+1, 0));
     for (int i = 1; i <= text1.size(); i++) {
         for (int j = 1; j <= text2.size(); j++) {
             if (text1[i - 1] == text2[j - 1]) {
@@ -63,7 +64,7 @@ int longestCommonSubsequence2(string text1, string text2) {
 int main(int argc, const char * argv[]) {
     
     
-    cout << longestCommonSubsequence2("abcde", "abce") << endl;
+    cout << longestCommonSubsequence2("abcd", "ace") << endl;
     
     return 0;
 }
