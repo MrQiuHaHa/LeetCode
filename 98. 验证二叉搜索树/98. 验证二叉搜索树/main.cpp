@@ -115,12 +115,13 @@ bool isValidBST1(TreeNode* root) {
     long long inorder = (long long)INT_MIN - 1;
 
     while (true) {
-        if (stack.empty()) {
-            break;
-        }
+        
         while (root != nullptr) {
             stack.push(root);
             root = root -> left;
+        }
+        if (stack.empty()) {
+            break;
         }
         root = stack.top();
         stack.pop();
