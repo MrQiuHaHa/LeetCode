@@ -49,12 +49,12 @@ class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         ListNode *head = nullptr, *tail = nullptr;
-        int carry = 0;
+        int carry = 0;//进位数据
         while (l1 || l2) {
-            int n1 = l1 ? l1->val: 0;
-            int n2 = l2 ? l2->val: 0;
+            int n1 = l1 != nullptr ? l1->val : 0;
+            int n2 = l2 != nullptr ? l2->val : 0;
             int sum = n1 + n2 + carry;
-            if (!head) {
+            if (head == nullptr) {
                 head = tail = new ListNode(sum % 10);
             } else {
                 tail->next = new ListNode(sum % 10);
